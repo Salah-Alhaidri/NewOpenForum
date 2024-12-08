@@ -3,6 +3,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 load_dotenv()
+from decouple import config
 
 config = {
     'APP': {
@@ -11,6 +12,7 @@ config = {
     }
 }
 
+BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '_%wbq3gi-ohhxuenszmc$m1(grnq+__m&pr2@j+n8(gw_!eb0l'
@@ -35,7 +37,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google'
     
 ]
-
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = "salah10saeed@gmail.com"  # new
+EMAIL_HOST_PASSWORD = "jpwfctdobtqukakg"  # new
+EMAIL_PORT = 587  # new
+EMAIL_USE_TLS = True  # new
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -69,15 +76,10 @@ WSGI_APPLICATION = 'dicussion_board.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Boards_django',
-        'USER': 'postgres',
-        'PASSWORD': 'salah',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
@@ -148,3 +150,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'
 LOGIN_URL= 'login'
+
+
+# Enable Django email debugging
+EMAIL_DEBUG = True
+
+# Set up logging for emails

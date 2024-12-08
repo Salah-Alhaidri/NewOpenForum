@@ -19,6 +19,49 @@ from .models import forummodel
 from django.views.generic import ListView
 from .models import forummodel  # Replace with your actual model name
 
+
+from django.conf import settings
+from django.core.mail import send_mail, BadHeaderError
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from .forms import ContactForm
+
+
+def success_view(request):
+    
+    return render(request,'success.html')
+
+def contact_view(request):
+    """
+    Handle the contact form submission.
+    """
+    if request.method == "POST":
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data.get("email")
+            subject = form.cleaned_data.get("subject")
+            message = form.cleaned_data.get("message")
+            
+            try:
+                send_mail(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    [email],
+                    fail_silently=False,
+                )
+            except BadHeaderError:
+                return render(request, "error.html", {"error": "Invalid header found."})
+            except Exception as e:
+                return render(request, "error.html", {"error": f"Email sending failed: {e}"})
+
+            return redirect(reverse("success"))  # Redirect to a success page
+    else:
+        form = ContactForm()
+
+    return render(request, "contact.html", {"form": form})
+
 class forummodelListView(ListView):
     model = forummodel
     context_object_name = 'boards'

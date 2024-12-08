@@ -11,10 +11,10 @@ class forummodel(models.Model):
     ForumTitile = models.CharField(max_length=50, unique=True)
     ForumDescription = models.CharField(max_length=150)
     ForumImage = models.ImageField(
-        upload_to='media/board_images/',  # Directory in MEDIA_ROOT where images are saved
-        null=True,                  # Allow null values in the database
-        blank=True,                 # Allow the field to be left blank in forms
-    
+        upload_to='board_images/',       # Directory within MEDIA_ROOT
+        null=True,                       # Allow null values in the database
+        blank=True,                      # Allow leaving the field blank in forms
+        default='board_images/bootstrap.png'  # Path to the default image
     )
 
     # image = models.ImageField(upload_to='board_images/', null=True, blank=True)
