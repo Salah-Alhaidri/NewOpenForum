@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = '_%wbq3gi-ohhxuenszmc$m1(grnq+__m&pr2@j+n8(gw_!eb0l'
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 INSTALLED_APPS = [
