@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'accounts',
     'boards',
     'bootstrap5',
-    'forums',
         'allauth',
     'allauth.account',
     'allauth.socialaccount',
