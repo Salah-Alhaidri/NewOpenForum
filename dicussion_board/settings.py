@@ -46,6 +46,7 @@ EMAIL_USE_TLS = True  # new
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -122,6 +123,7 @@ STATICFILES_DIRS=[
     os.path.join(BASE_DIR,'static'),
 ]
 
+STATICFILES_STORAGE='whitenoise.storage.CompressedManifestStaticFilesStorage'
 # Directory for collected static files (used in production)
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
